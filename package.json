@@ -1,20 +1,33 @@
 {
-  "name": "ts",
+  "name": "base-ts-project",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "This is a TypeScript Base Project",
+  "main": "src/app.ts",
   "scripts": {
-    "start:dev": "nodemon"
+    "start:dev": "nodemon",
+    "check": "tsc",
+    "build": "rimraf ./build && tsc",
+    "build:start": "npm run build && node build/app.js",
+    "test": "npx jest"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "nodemon": "^2.0.4",
-    "prettier": "^2.0.5",
-    "ts-node": "^8.10.2",
-    "typescript": "^3.9.7"
-  },
-  "dependencies": {
-    "axios": "^0.19.2"
+    "@types/jest": "^26.0.24",
+    "@typescript-eslint/eslint-plugin": "^4.28.3",
+    "@typescript-eslint/parser": "^4.28.3",
+    "eslint": "^7.31.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-config-standard": "^16.0.3",
+    "eslint-plugin-import": "^2.23.4",
+    "eslint-plugin-jest": "^24.3.6",
+    "eslint-plugin-prettier": "^3.4.0",
+    "jest": "^27.0.6",
+    "nodemon": "^2.0.12",
+    "prettier": "^2.3.2",
+    "rimraf": "^3.0.2",
+    "ts-jest": "^27.0.3",
+    "ts-node": "^10.1.0",
+    "typescript": "^4.3.5"
   }
 }
