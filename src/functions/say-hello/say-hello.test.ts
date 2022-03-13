@@ -1,4 +1,7 @@
 import { sayHello } from './say-hello';
+import * as sayHelloLib from './say-hello';
+
+const spyOn = jest.spyOn;
 
 const SAY_HELLO_MODULE_PATH = './say-hello';
 
@@ -24,6 +27,20 @@ describe('sayHello', () => {
 
     // Assert
     expect(sayHelloMock.sayHello).toHaveReturnedWith('Hello Yolo');
+  });
+
+  it('should replace the result - approach 2', () => {
+    // Arrange
+    const sayHelloSpy = spyOn(sayHelloLib, 'sayHello').mockReturnValue('Hello Yolo');
+
+    // Act
+    sayHelloLib.sayHello();
+
+    // Assert
+    expect(sayHelloLib.sayHello).toHaveReturnedWith('Hello Yolo');
+
+    // Clean
+    sayHelloSpy.mockRestore();
   });
 
   it('should receive the expected name arg', () => {
