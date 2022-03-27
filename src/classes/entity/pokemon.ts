@@ -6,6 +6,7 @@ export class Pokemon {
   constructor(id: number, name: string, weight: number) {
     this.#id = id;
     this.#name = name;
+    this.validateWeight(weight);
     this.#weight = weight;
   }
 
@@ -19,6 +20,12 @@ export class Pokemon {
 
   get weight(): number {
     return this.#weight;
+  }
+
+  validateWeight(weight: number): void {
+    if (weight <= 0) {
+      throw new Error('Weight cannot be less or equal than zero.');
+    }
   }
 
   toJSON(): Record<string, any> {

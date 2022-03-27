@@ -1,11 +1,15 @@
-import { PokemonDao } from './pokemon-dao';
 import axios from 'axios';
+
+import { PokemonDao } from './pokemon-dao';
+import { TriggerThrow, NoErrorThrownError } from '../../test-utils/TriggerThrow';
+
+import spyOn = jest.spyOn;
 
 jest.mock('axios', () => ({
   get: jest.fn((url: string) => Promise.resolve(url)),
 }));
 
-describe('PokemonDao', () => {
+describe('Pokemon DAO', () => {
   it('should exists', () => {
     expect(PokemonDao).toBeTruthy();
   });
@@ -70,5 +74,28 @@ describe('PokemonDao', () => {
     expect(actual).toStrictEqual(expected);
     // Clean
     fetchPokeAPI.mockRestore();
+  });
+
+  it('should throw an error when weight is less than or equal zero', async () => {
+    // Arrange
+    const pokemonDao = new PokemonDao();
+
+    spyOn(axios, 'get').mockReturnValue(
+      Promise.resolve({
+        data: {
+          id: 123,
+          name: 'Pikachu',
+          weight: 0,
+        },
+      })
+    );
+
+    // Act
+    const error = await TriggerThrow.apply<Error>(async () => pokemonDao.getPokemonByName());
+
+    // Assert
+    expect(error).not.toBeInstanceOf(NoErrorThrownError);
+    expect(error).toBeInstanceOf(Error);
+    expect(error.message).toMatch('Weight cannot be less or equal than zero.');
   });
 });

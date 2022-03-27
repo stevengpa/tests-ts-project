@@ -10,7 +10,7 @@ export class PokemonDao {
 
     const pokemon = await response?.data;
 
-    if (!pokemon || (pokemon && typeof pokemon !== 'object')) {
+    if (typeof pokemon !== 'object') {
       return null;
     }
 
