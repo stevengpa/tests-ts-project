@@ -38,9 +38,9 @@ describe('getV4', () => {
 
   it('should expect to use the uuid.v4 from the external dependency', () => {
     // Arrange
-    jest.unmock('uuid');
     const originalUUID = require('uuid');
     const expected = originalUUID.v4();
+
     jest.spyOn(uuid, 'v4').mockReturnValue(expected);
     // Act
     const actual = getV4();
